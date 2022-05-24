@@ -5,7 +5,13 @@ N_TEMP = temp.a
 NAME = libftprintf.a
 
 SRCS =  ft_printf.c 		\
-		ft_putnbr_base.c
+		ft_putnbr_base.c	\
+		ft_print_hex.c		\
+		ft_print_ptr.c		\
+		ft_print_unsign.c	\
+		ft_print_int.c		\
+		ft_putchar_pf.c		\
+		ft_size_number.c
 
 CC = gcc
 

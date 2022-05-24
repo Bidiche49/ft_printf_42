@@ -6,77 +6,47 @@
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 21:26:35 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/24 11:35:03 by ntardy           ###   ########.fr       */
+/*   Updated: 2022/05/24 20:56:52 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_ptr(void *arg, const char *s, int i)
+int ft_forest(const char *s, int i, va_list argument)
 {
-    if (arg == NULL)
-        return (i += 2);
-    if (s[i + 1] == 's')
-        ft_putstr_fd((char *)arg, 1);
-    if (s[i + 1] == 'p')
-    {
-        ft_putstr_fd("0x", 1);
-        ft_putnbr_base((unsigned long)arg, "0123456789abcdef");
-    }
-    return (i += 2);
-}
-
-int ft_print_int(int arg, const char *s, int i)
-{
-
-    if (s[i + 1] == 'd' || s[i + 1] == 'i')
-        ft_putnbr_fd(arg, 1);
-    if (s[i + 1] == 'c')
-        ft_putchar_fd(arg, 1);
-    return (i += 2);
-}
-
-int ft_print_hex(long long hex, const char *s, int i)
-{
-    if (s[i + 1] == 'x')
-        ft_putnbr_base(hex, "0123456789abcdef");
-    if (s[i + 1] == 'X')
-        ft_putnbr_base(hex, "0123456789ABCDEF");
-    return (i += 2);
-}
-
-int ft_print_unsign(unsigned unsign, int i)
-{
-    ft_putnbr_base_unsign(unsign, "0123456789");
-    return (i += 2);
+    if ((s[i] == 'c' || s[i] == 'd' || s[i] == 'i'))
+        return (ft_print_int(va_arg(argument, int), s, i));
+    if ((s[i] == 's' || s[i] == 'p'))
+        return (ft_print_ptr(va_arg(argument, void *), s, i));
+    if ((s[i] == 'x' || s[i] == 'X'))
+        return (ft_print_hex(va_arg(argument, long long), s, i));
+    if (s[i] == 'u')
+        return (ft_print_unsign(va_arg(argument, unsigned), i));
+    if (s[i] == '%')
+        return (ft_putchar_pf('%'));
+    return (0);
 }
 
 int    ft_printf(const char *s, ...)
 {
-    va_list   argument;
-    int       i;
+    va_list     argument;
+    int         i;
+    int         ret;
 
-    i = 0;
+    i = -1;
+    ret = 0;
     va_start(argument, s);
-    while (s[i])
+    while (s[++i])
     {
-        if (s[i] == '%' && (s[i + 1] == 'c' || s[i + 1] == 'd' || s[i + 1] == 'i'))
-            i = ft_print_int(va_arg(argument, int), s, i);
-        if (s[i] == '%' && (s[i + 1] == 's' || s[i + 1] == 'p'))
-            i = ft_print_ptr(va_arg(argument, void *), s, i);
-        if (s[i] == '%' && (s[i + 1] == 'x' || s[i + 1] == 'X'))
-            i = ft_print_hex(va_arg(argument, long long), s, i);
-        if (s[i] == '%' && s[i + 1] == 'u')
-            i = ft_print_unsign(va_arg(argument, unsigned), i);
-        if (s[i] == '%' && s[i + 1] == '%')
+        if (s[i] == '%' && (s[i + 1] == 'c' || s[i + 1] == 'd' || s[i + 1] == 'i' || s[i + 1] == 's' || s[i + 1] == 'p' || s[i + 1] == 'x' || s[i + 1] == 'X' || s[i + 1] == 'u' || s[i + 1] == '%'))
         {
-            ft_putchar_fd(s[i], 1);
-            i += 2;
+            ret += ft_forest(s, ++i, argument);
+            i++;
         }
         if (s[i])
-            ft_putchar_fd(s[i++], 1);
+            ret += ft_putchar_pf(s[i]);
     }
-    return (0);
+    return (ret);
 }
 
 // int main(void)
