@@ -6,7 +6,7 @@
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:41:03 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/23 23:05:59 by ntardy           ###   ########.fr       */
+/*   Updated: 2022/05/26 10:14:56 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,33 @@ static int	ft_check_base(char *base)
 	return (1);
 }
 
-void	ft_putnbr_base_unsign(unsigned long long nb, char *base)
+int	ft_putnbr_base_unsign(unsigned long long nb, char *base, unsigned int i)
 {
 	const unsigned int	len_base = ft_strlen(base);
 
-	if (nb > len_base - 1)
+	if (nb >= len_base)
 	{
-		ft_putnbr_base_unsign(nb / len_base, base);
+		i += ft_putnbr_base_unsign(nb / len_base, base, i);
 		ft_putchar_fd(base[nb % len_base], 1);
+		return (++i);
 	}
 	else
+	{
 		ft_putchar_fd(base[nb], 1);
+		return (++i);
+	}
 }
 
-void	ft_putnbr_base(long long nb, char *base)
+int	ft_putnbr_base(long long nb, char *base)
 {
 	if (!ft_check_base(base))
-		return ;
+		return (0);
 	if (nb == 0)
-		return (ft_putchar_fd(base[0], 1));
+		return(ft_putchar_pf(base[0]));
 	if (nb < 0)
 	{
 		ft_putchar_fd('-', 1);
-		return (ft_putnbr_base_unsign((nb * -1), base));
+		return (ft_putnbr_base_unsign((nb * -1), base, 0));
 	}
-	ft_putnbr_base_unsign(nb, base);
+	return (ft_putnbr_base_unsign(nb, base, 0));
 }

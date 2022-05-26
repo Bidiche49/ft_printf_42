@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsign.c                                  :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 20:40:06 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/25 16:51:16 by ntardy           ###   ########.fr       */
+/*   Created: 2022/03/14 19:14:35 by ntardy            #+#    #+#             */
+/*   Updated: 2022/05/18 19:55:24 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int ft_print_unsign(unsigned unsign)
+char	*ft_strdup(const char *src)
 {
-    return (ft_putnbr_base_unsign(unsign, "0123456789", 0));
+	unsigned int	i;
+	char			*str;
+
+	i = -1;
+	str = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (str == NULL)
+		return (NULL);
+	while (src[++i])
+		str[i] = src[i];
+	str[i] = '\0';
+	return (str);
 }

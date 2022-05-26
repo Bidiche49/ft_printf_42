@@ -6,23 +6,32 @@
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:39:06 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/24 20:39:24 by ntardy           ###   ########.fr       */
+/*   Updated: 2022/05/26 10:23:10 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_hex(long long hex, const char *s, int i)
+static int	ft_putnbr_basex(unsigned int nb, char *base, unsigned int i)
 {
-    if (s[i] == 'x')
-    {
-        ft_putnbr_base(hex, "0123456789abcdef");
-        return (ft_size_number(hex, 16));
-    }
-    if (s[i] == 'X')
-    {
-        ft_putnbr_base(hex, "0123456789ABCDEF");
-        return (ft_size_number(hex, 16));
-    }
-    return (0);
+	const unsigned int	len_base = ft_strlen(base);
+
+	if (nb >= len_base)
+	{
+		i += ft_putnbr_base_unsign(nb / len_base, base, i);
+		ft_putchar_fd(base[nb % len_base], 1);
+		return (++i);
+	}
+	else
+	{
+		ft_putchar_fd(base[nb], 1);
+		return (++i);
+	}
+}
+int ft_print_hex(unsigned int hex, char format)
+{
+    if (format == 'x')
+        return (ft_putnbr_basex(hex, "0123456789abcdef", 0));
+    else
+        return (ft_putnbr_basex(hex, "0123456789ABCDEF", 0));
 }

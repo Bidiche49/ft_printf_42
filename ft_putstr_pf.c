@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsign.c                                  :+:      :+:    :+:   */
+/*   ft_putstr_pf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 20:40:06 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/25 16:51:16 by ntardy           ###   ########.fr       */
+/*   Created: 2022/05/25 00:15:13 by ntardy            #+#    #+#             */
+/*   Updated: 2022/05/25 00:57:21 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_unsign(unsigned unsign)
+int	ft_putstr_pf(char *s)
 {
-    return (ft_putnbr_base_unsign(unsign, "0123456789", 0));
+	if (s == NULL)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
+	ft_putstr_fd(s, 1);
+	return (ft_strlen(s));
 }

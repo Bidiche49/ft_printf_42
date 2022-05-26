@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsign.c                                  :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 20:40:06 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/25 16:51:16 by ntardy           ###   ########.fr       */
+/*   Created: 2022/03/15 09:38:10 by ntardy            #+#    #+#             */
+/*   Updated: 2022/05/21 13:46:37 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int ft_print_unsign(unsigned unsign)
+char	*ft_strrchr(const char *s, int c)
 {
-    return (ft_putnbr_base_unsign(unsign, "0123456789", 0));
+	int					i;
+	const unsigned char	unsign_c = (unsigned char)c;
+
+	i = (int)ft_strlen(s);
+	if (s[i] == unsign_c && unsign_c == '\0')
+		return ((char *)s + i);
+	while (--i >= 0)
+	{
+		if (s[i] == unsign_c)
+			return ((char *)s + i);
+	}
+	return (NULL);
 }

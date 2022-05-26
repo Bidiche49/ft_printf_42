@@ -31,7 +31,7 @@ SRCS			=	ft_isalnum.c	\
 					ft_calloc.c		\
 					ft_memmove.c	\
 					ft_memset.c		\
-					ft_memchr.c
+					ft_memchr.c	
 
 OBJS			= $(SRCS:.c=.o)
 
@@ -57,7 +57,6 @@ all:			$(NAME)
 
 $(NAME):		$(OBJS)
 				ar rc $(NAME) $(OBJS)
-
 clean:
 				$(RM) $(OBJS) $(BONUS_OBJS)
 

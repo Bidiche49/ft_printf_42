@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsign.c                                  :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 20:40:06 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/25 16:51:16 by ntardy           ###   ########.fr       */
+/*   Created: 2022/05/18 17:11:34 by ntardy            #+#    #+#             */
+/*   Updated: 2022/05/18 19:31:37 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int ft_print_unsign(unsigned unsign)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-    return (ft_putnbr_base_unsign(unsign, "0123456789", 0));
+	t_list	*lst_res;
+	t_list	*element;
+
+	lst_res = NULL;
+	while (lst)
+	{
+		element = ft_lstnew((*f)(lst->content));
+		if (element == NULL)
+		{
+			(*del)(element->content);
+			free(element);
+		}
+		ft_lstadd_back(&lst_res, element);
+		lst = lst->next;
+	}
+	return (lst_res);
 }

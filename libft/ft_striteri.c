@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsign.c                                  :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 20:40:06 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/25 16:51:16 by ntardy           ###   ########.fr       */
+/*   Created: 2022/05/07 16:12:29 by ntardy            #+#    #+#             */
+/*   Updated: 2022/05/21 13:52:47 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int ft_print_unsign(unsigned unsign)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-    return (ft_putnbr_base_unsign(unsign, "0123456789", 0));
+	int	i;
+
+	i = -1;
+	if (!s || !f)
+		return ;
+	while (s[++i])
+		f((unsigned int)i, s + i);
 }

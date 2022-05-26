@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntardy <ntardy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 21:03:43 by ntardy            #+#    #+#             */
-/*   Updated: 2022/05/24 21:05:10 by ntardy           ###   ########.fr       */
+/*   Created: 2022/03/15 00:16:51 by ntardy            #+#    #+#             */
+/*   Updated: 2022/05/21 17:10:46 by ntardy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
-int main(void)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	void *ptr;
+	unsigned int	i;
 
-	ptr = "BJR";
-	printf("adresse = %p\n", ptr);
-	return (0);
+	if (size != 0)
+	{
+		i = 0;
+		while (i < size - 1 && src[i])
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

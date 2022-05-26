@@ -11,7 +11,8 @@ SRCS =  ft_printf.c 		\
 		ft_print_unsign.c	\
 		ft_print_int.c		\
 		ft_putchar_pf.c		\
-		ft_size_number.c
+		ft_size_number.c	\
+		ft_putstr_pf.c
 
 CC = gcc
 
@@ -22,7 +23,7 @@ INCLUDES = -I./includes
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
-	$(MAKE) bonus -C ./libft
+	$(MAKE) -C ./libft
 	cp libft/libft.a $(NAME)
 	$(CC) $(FLAGS) $(INCLUDES) $(SRCS)
 	ar -rcs $(NAME) $(OBJS)
